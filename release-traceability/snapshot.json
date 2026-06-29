@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T14:36:28.530Z",
+  "generatedAt": "2026-06-29T14:49:18.604Z",
   "bySprintRollup": [
     {
       "sprintId": "SPRINT-21",
@@ -25,8 +25,21 @@
       "sprintId": "SPRINT-22",
       "sprintName": "Sprint 22",
       "totalTickets": 4,
-      "covered": 4,
-      "gaps": []
+      "covered": 3,
+      "gaps": [
+        {
+          "ticketId": "TICKET-1003",
+          "epicId": "FEAT-101",
+          "epicTitle": "API Reference Overhaul",
+          "sprintId": "SPRINT-22",
+          "sprintName": "Sprint 22",
+          "fixedDate": "2026-04-20",
+          "owner": "Priya Nair",
+          "status": "gap",
+          "reason": "Doc \"API Pagination Guide\" tags this ticket but was committed 2026-04-05, before this sprint started (2026-04-15). Stale tag - not real coverage.",
+          "matchedDoc": null
+        }
+      ]
     },
     {
       "sprintId": "SPRINT-23",
@@ -87,8 +100,21 @@
       "epicTitle": "API Reference Overhaul",
       "owner": "Priya Nair",
       "totalTickets": 3,
-      "covered": 3,
-      "gaps": []
+      "covered": 2,
+      "gaps": [
+        {
+          "ticketId": "TICKET-1003",
+          "epicId": "FEAT-101",
+          "epicTitle": "API Reference Overhaul",
+          "sprintId": "SPRINT-22",
+          "sprintName": "Sprint 22",
+          "fixedDate": "2026-04-20",
+          "owner": "Priya Nair",
+          "status": "gap",
+          "reason": "Doc \"API Pagination Guide\" tags this ticket but was committed 2026-04-05, before this sprint started (2026-04-15). Stale tag - not real coverage.",
+          "matchedDoc": null
+        }
+      ]
     },
     {
       "epicId": "FEAT-102",
@@ -176,7 +202,7 @@
       "fixedDate": "2026-04-10",
       "owner": "Priya Nair",
       "status": "covered",
-      "reason": "Covered by \"API Reference Overview\", committed 2026-06-29.",
+      "reason": "Covered by \"API Reference Overview\", committed 2026-04-13.",
       "matchedDoc": "content/api-reference/overview.md"
     },
     {
@@ -188,7 +214,7 @@
       "fixedDate": "2026-04-12",
       "owner": "Priya Nair",
       "status": "covered",
-      "reason": "Covered by \"API Reference Overview\", committed 2026-06-29.",
+      "reason": "Covered by \"API Reference Overview\", committed 2026-04-13.",
       "matchedDoc": "content/api-reference/overview.md"
     },
     {
@@ -199,9 +225,9 @@
       "sprintName": "Sprint 22",
       "fixedDate": "2026-04-20",
       "owner": "Priya Nair",
-      "status": "covered",
-      "reason": "Covered by \"API Pagination Guide\", committed 2026-06-29.",
-      "matchedDoc": "content/api-reference/pagination.md"
+      "status": "gap",
+      "reason": "Doc \"API Pagination Guide\" tags this ticket but was committed 2026-04-05, before this sprint started (2026-04-15). Stale tag - not real coverage.",
+      "matchedDoc": null
     },
     {
       "ticketId": "TICKET-1010",
@@ -224,7 +250,7 @@
       "fixedDate": "2026-04-18",
       "owner": "Arjun Mehta",
       "status": "covered",
-      "reason": "Covered by \"In-App Help Widget Tour\", committed 2026-06-29.",
+      "reason": "Covered by \"In-App Help Widget Tour\", committed 2026-04-19.",
       "matchedDoc": "content/in-app-help/tour.md"
     },
     {
@@ -284,7 +310,7 @@
       "fixedDate": "2026-04-09",
       "owner": "Meera Kulkarni",
       "status": "covered",
-      "reason": "Covered by \"Release Notes Automation Pipeline\", committed 2026-06-29.",
+      "reason": "Covered by \"Release Notes Automation Pipeline\", committed 2026-05-09.",
       "matchedDoc": "content/release-notes/automation-pipeline.md"
     },
     {
@@ -296,7 +322,7 @@
       "fixedDate": "2026-04-19",
       "owner": "Meera Kulkarni",
       "status": "covered",
-      "reason": "Covered by \"Release Notes Automation Pipeline\", committed 2026-06-29.",
+      "reason": "Covered by \"Release Notes Automation Pipeline\", committed 2026-05-09.",
       "matchedDoc": "content/release-notes/automation-pipeline.md"
     },
     {
@@ -308,7 +334,7 @@
       "fixedDate": "2026-05-08",
       "owner": "Meera Kulkarni",
       "status": "covered",
-      "reason": "Covered by \"Release Notes Automation Pipeline\", committed 2026-06-29.",
+      "reason": "Covered by \"Release Notes Automation Pipeline\", committed 2026-05-09.",
       "matchedDoc": "content/release-notes/automation-pipeline.md"
     },
     {
