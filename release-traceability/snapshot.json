@@ -1,0 +1,309 @@
+{
+  "generatedAt": "2026-06-28T12:29:21.993Z",
+  "bySprintRollup": [
+    {
+      "sprintId": "SPRINT-21",
+      "sprintName": "Sprint 21",
+      "totalTickets": 4,
+      "covered": 3,
+      "gaps": [
+        {
+          "ticketId": "TICKET-1010",
+          "epicId": "FEAT-102",
+          "epicTitle": "In-App Help Widget",
+          "sprintId": "SPRINT-21",
+          "sprintName": "Sprint 21",
+          "fixedDate": "2026-04-08",
+          "owner": "Arjun Mehta",
+          "status": "gap",
+          "reason": "No doc page tags this ticket.",
+          "matchedDoc": null
+        }
+      ]
+    },
+    {
+      "sprintId": "SPRINT-22",
+      "sprintName": "Sprint 22",
+      "totalTickets": 4,
+      "covered": 3,
+      "gaps": [
+        {
+          "ticketId": "TICKET-1003",
+          "epicId": "FEAT-101",
+          "epicTitle": "API Reference Overhaul",
+          "sprintId": "SPRINT-22",
+          "sprintName": "Sprint 22",
+          "fixedDate": "2026-04-20",
+          "owner": "Priya Nair",
+          "status": "gap",
+          "reason": "Doc \"API Pagination Guide\" tags this ticket but was committed 2026-04-05, before this sprint started (2026-04-15). Stale tag - not real coverage.",
+          "matchedDoc": null
+        }
+      ]
+    },
+    {
+      "sprintId": "SPRINT-23",
+      "sprintName": "Sprint 23",
+      "totalTickets": 4,
+      "covered": 2,
+      "gaps": [
+        {
+          "ticketId": "TICKET-1022",
+          "epicId": "FEAT-103",
+          "epicTitle": "Knowledge Base Search",
+          "sprintId": "SPRINT-23",
+          "sprintName": "Sprint 23",
+          "fixedDate": "2026-05-05",
+          "owner": "Priya Nair",
+          "status": "gap",
+          "reason": "No doc page tags this ticket.",
+          "matchedDoc": null
+        },
+        {
+          "ticketId": "TICKET-1033",
+          "epicId": "FEAT-104",
+          "epicTitle": "Release Notes Automation",
+          "sprintId": "SPRINT-23",
+          "sprintName": "Sprint 23",
+          "fixedDate": "2026-05-10",
+          "owner": "Meera Kulkarni",
+          "status": "gap",
+          "reason": "No doc page tags this ticket.",
+          "matchedDoc": null
+        }
+      ]
+    }
+  ],
+  "byFeatureRollup": [
+    {
+      "epicId": "FEAT-101",
+      "epicTitle": "API Reference Overhaul",
+      "owner": "Priya Nair",
+      "totalTickets": 3,
+      "covered": 2,
+      "gaps": [
+        {
+          "ticketId": "TICKET-1003",
+          "epicId": "FEAT-101",
+          "epicTitle": "API Reference Overhaul",
+          "sprintId": "SPRINT-22",
+          "sprintName": "Sprint 22",
+          "fixedDate": "2026-04-20",
+          "owner": "Priya Nair",
+          "status": "gap",
+          "reason": "Doc \"API Pagination Guide\" tags this ticket but was committed 2026-04-05, before this sprint started (2026-04-15). Stale tag - not real coverage.",
+          "matchedDoc": null
+        }
+      ]
+    },
+    {
+      "epicId": "FEAT-102",
+      "epicTitle": "In-App Help Widget",
+      "owner": "Arjun Mehta",
+      "totalTickets": 2,
+      "covered": 1,
+      "gaps": [
+        {
+          "ticketId": "TICKET-1010",
+          "epicId": "FEAT-102",
+          "epicTitle": "In-App Help Widget",
+          "sprintId": "SPRINT-21",
+          "sprintName": "Sprint 21",
+          "fixedDate": "2026-04-08",
+          "owner": "Arjun Mehta",
+          "status": "gap",
+          "reason": "No doc page tags this ticket.",
+          "matchedDoc": null
+        }
+      ]
+    },
+    {
+      "epicId": "FEAT-103",
+      "epicTitle": "Knowledge Base Search",
+      "owner": "Priya Nair",
+      "totalTickets": 3,
+      "covered": 2,
+      "gaps": [
+        {
+          "ticketId": "TICKET-1022",
+          "epicId": "FEAT-103",
+          "epicTitle": "Knowledge Base Search",
+          "sprintId": "SPRINT-23",
+          "sprintName": "Sprint 23",
+          "fixedDate": "2026-05-05",
+          "owner": "Priya Nair",
+          "status": "gap",
+          "reason": "No doc page tags this ticket.",
+          "matchedDoc": null
+        }
+      ]
+    },
+    {
+      "epicId": "FEAT-104",
+      "epicTitle": "Release Notes Automation",
+      "owner": "Meera Kulkarni",
+      "totalTickets": 4,
+      "covered": 3,
+      "gaps": [
+        {
+          "ticketId": "TICKET-1033",
+          "epicId": "FEAT-104",
+          "epicTitle": "Release Notes Automation",
+          "sprintId": "SPRINT-23",
+          "sprintName": "Sprint 23",
+          "fixedDate": "2026-05-10",
+          "owner": "Meera Kulkarni",
+          "status": "gap",
+          "reason": "No doc page tags this ticket.",
+          "matchedDoc": null
+        }
+      ]
+    }
+  ],
+  "allResults": [
+    {
+      "ticketId": "TICKET-1001",
+      "epicId": "FEAT-101",
+      "epicTitle": "API Reference Overhaul",
+      "sprintId": "SPRINT-21",
+      "sprintName": "Sprint 21",
+      "fixedDate": "2026-04-10",
+      "owner": "Priya Nair",
+      "status": "covered",
+      "reason": "Covered by \"API Reference Overview\", committed 2026-04-13.",
+      "matchedDoc": "content/api-reference/overview.md"
+    },
+    {
+      "ticketId": "TICKET-1002",
+      "epicId": "FEAT-101",
+      "epicTitle": "API Reference Overhaul",
+      "sprintId": "SPRINT-21",
+      "sprintName": "Sprint 21",
+      "fixedDate": "2026-04-12",
+      "owner": "Priya Nair",
+      "status": "covered",
+      "reason": "Covered by \"API Reference Overview\", committed 2026-04-13.",
+      "matchedDoc": "content/api-reference/overview.md"
+    },
+    {
+      "ticketId": "TICKET-1003",
+      "epicId": "FEAT-101",
+      "epicTitle": "API Reference Overhaul",
+      "sprintId": "SPRINT-22",
+      "sprintName": "Sprint 22",
+      "fixedDate": "2026-04-20",
+      "owner": "Priya Nair",
+      "status": "gap",
+      "reason": "Doc \"API Pagination Guide\" tags this ticket but was committed 2026-04-05, before this sprint started (2026-04-15). Stale tag - not real coverage.",
+      "matchedDoc": null
+    },
+    {
+      "ticketId": "TICKET-1010",
+      "epicId": "FEAT-102",
+      "epicTitle": "In-App Help Widget",
+      "sprintId": "SPRINT-21",
+      "sprintName": "Sprint 21",
+      "fixedDate": "2026-04-08",
+      "owner": "Arjun Mehta",
+      "status": "gap",
+      "reason": "No doc page tags this ticket.",
+      "matchedDoc": null
+    },
+    {
+      "ticketId": "TICKET-1011",
+      "epicId": "FEAT-102",
+      "epicTitle": "In-App Help Widget",
+      "sprintId": "SPRINT-22",
+      "sprintName": "Sprint 22",
+      "fixedDate": "2026-04-18",
+      "owner": "Arjun Mehta",
+      "status": "covered",
+      "reason": "Covered by \"In-App Help Widget Tour\", committed 2026-04-19.",
+      "matchedDoc": "content/in-app-help/tour.md"
+    },
+    {
+      "ticketId": "TICKET-1020",
+      "epicId": "FEAT-103",
+      "epicTitle": "Knowledge Base Search",
+      "sprintId": "SPRINT-22",
+      "sprintName": "Sprint 22",
+      "fixedDate": "2026-04-22",
+      "owner": "Priya Nair",
+      "status": "covered",
+      "reason": "Covered by \"Knowledge Base Search Relevance\", committed 2026-05-03.",
+      "matchedDoc": "content/knowledge-base/search-relevance.md"
+    },
+    {
+      "ticketId": "TICKET-1021",
+      "epicId": "FEAT-103",
+      "epicTitle": "Knowledge Base Search",
+      "sprintId": "SPRINT-23",
+      "sprintName": "Sprint 23",
+      "fixedDate": "2026-05-02",
+      "owner": "Priya Nair",
+      "status": "covered",
+      "reason": "Covered by \"Knowledge Base Search Relevance\", committed 2026-05-03.",
+      "matchedDoc": "content/knowledge-base/search-relevance.md"
+    },
+    {
+      "ticketId": "TICKET-1022",
+      "epicId": "FEAT-103",
+      "epicTitle": "Knowledge Base Search",
+      "sprintId": "SPRINT-23",
+      "sprintName": "Sprint 23",
+      "fixedDate": "2026-05-05",
+      "owner": "Priya Nair",
+      "status": "gap",
+      "reason": "No doc page tags this ticket.",
+      "matchedDoc": null
+    },
+    {
+      "ticketId": "TICKET-1030",
+      "epicId": "FEAT-104",
+      "epicTitle": "Release Notes Automation",
+      "sprintId": "SPRINT-21",
+      "sprintName": "Sprint 21",
+      "fixedDate": "2026-04-09",
+      "owner": "Meera Kulkarni",
+      "status": "covered",
+      "reason": "Covered by \"Release Notes Automation Pipeline\", committed 2026-05-09.",
+      "matchedDoc": "content/release-notes/automation-pipeline.md"
+    },
+    {
+      "ticketId": "TICKET-1031",
+      "epicId": "FEAT-104",
+      "epicTitle": "Release Notes Automation",
+      "sprintId": "SPRINT-22",
+      "sprintName": "Sprint 22",
+      "fixedDate": "2026-04-19",
+      "owner": "Meera Kulkarni",
+      "status": "covered",
+      "reason": "Covered by \"Release Notes Automation Pipeline\", committed 2026-05-09.",
+      "matchedDoc": "content/release-notes/automation-pipeline.md"
+    },
+    {
+      "ticketId": "TICKET-1032",
+      "epicId": "FEAT-104",
+      "epicTitle": "Release Notes Automation",
+      "sprintId": "SPRINT-23",
+      "sprintName": "Sprint 23",
+      "fixedDate": "2026-05-08",
+      "owner": "Meera Kulkarni",
+      "status": "covered",
+      "reason": "Covered by \"Release Notes Automation Pipeline\", committed 2026-05-09.",
+      "matchedDoc": "content/release-notes/automation-pipeline.md"
+    },
+    {
+      "ticketId": "TICKET-1033",
+      "epicId": "FEAT-104",
+      "epicTitle": "Release Notes Automation",
+      "sprintId": "SPRINT-23",
+      "sprintName": "Sprint 23",
+      "fixedDate": "2026-05-10",
+      "owner": "Meera Kulkarni",
+      "status": "gap",
+      "reason": "No doc page tags this ticket.",
+      "matchedDoc": null
+    }
+  ]
+}

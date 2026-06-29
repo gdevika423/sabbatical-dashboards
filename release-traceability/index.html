@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Release Documentation Traceability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rust: #C2410C;
+    --rust-light: #FDF1EB;
+    --ink: #1F2328;
+    --ink-soft: #5B6168;
+    --green: #15803D;
+    --green-bg: #EAF7EE;
+    --red: #B91C1C;
+    --red-bg: #FDECEC;
+    --border: #E7E2DC;
+    --track: #EFEAE2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #FBF9F6;
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 2rem;
+    margin: 0 0 6px;
+  }
+  .meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 14px;
+  }
+  section { margin-bottom: 40px; }
+
+  .sprint-strip {
+    display: flex;
+    gap: 10px;
+  }
+  .sprint-card {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    background: #fff;
+  }
+  .sprint-card .name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .sprint-card .ratio {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .sprint-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--track);
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .sprint-fill { height: 100%; border-radius: 999px; background: var(--green); }
+  .gap-count {
+    font-size: 0.78rem;
+    color: var(--red);
+  }
+  .gap-count.clean { color: var(--green); }
+
+  .feature-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    background: #fff;
+  }
+  .feature-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .feature-title { font-family: 'Fraunces', serif; font-size: 1.05rem; }
+  .feature-owner {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+  .feature-track {
+    height: 10px;
+    border-radius: 999px;
+    background: var(--track);
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .feature-fill { height: 100%; border-radius: 999px; background: var(--green); }
+  .feature-fill.partial { background: #D97706; }
+  .feature-ratio {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .gap-row {
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    margin-top: 8px;
+    font-size: 0.85rem;
+  }
+  .gap-row .ticket {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--red);
+    font-size: 0.78rem;
+  }
+  .gap-row .reason { color: var(--ink-soft); margin-top: 2px; }
+  .gap-type-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    padding: 2px 7px;
+    border-radius: 999px;
+    margin-left: 6px;
+  }
+  .gap-type-badge.no-tag { background: var(--red-bg); color: var(--red); }
+  .gap-type-badge.stale-tag { background: #FDF0DD; color: #B45309; }
+
+  .clean-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem;
+    color: var(--green);
+    background: var(--green-bg);
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+
+  .loading, .error {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    padding: 40px 0;
+    text-align: center;
+  }
+  .error { color: var(--red); }
+
+  .legend {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    background: #fff;
+    margin-bottom: 36px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .legend .legend-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .legend-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .legend-row:last-child { margin-bottom: 0; }
+  .legend-dot {
+    flex-shrink: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-top: 4px;
+  }
+  .legend-dot.no-tag { background: var(--red); }
+  .legend-dot.stale-tag { background: #B45309; }
+  .legend-dot.ratio { background: var(--green); }
+  .legend-row b { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Release documentation traceability</h1>
+  <div class="meta" id="meta">Loading…</div>
+
+  <div class="legend">
+    <div class="legend-title">How to read this</div>
+    <div class="legend-row">
+      <span class="legend-dot ratio"></span>
+      <span><b>The ratio</b> (e.g. "3/4") is covered tickets over total tickets in that sprint or feature.</span>
+    </div>
+    <div class="legend-row">
+      <span class="legend-dot no-tag"></span>
+      <span><b>No tag</b> — no documentation page references this ticket at all.</span>
+    </div>
+    <div class="legend-row">
+      <span class="legend-dot stale-tag"></span>
+      <span><b>Stale tag</b> — a doc page does tag this ticket, but it was last edited before the ticket's sprint even started, so it can't actually describe what shipped.</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>Sprint progress</h2>
+    <div class="sprint-strip" id="sprint-strip"></div>
+  </section>
+
+  <section>
+    <h2>Feature coverage</h2>
+    <div id="feature-list"></div>
+  </section>
+
+  <div class="loading" id="status">Loading snapshot…</div>
+</div>
+
+<script>
+async function loadSnapshot() {
+  const statusEl = document.getElementById('status');
+  try {
+    const res = await fetch('./snapshot.json?t=' + Date.now());
+    if (!res.ok) throw new Error('Snapshot not found (HTTP ' + res.status + ')');
+    const data = await res.json();
+    render(data);
+    statusEl.style.display = 'none';
+  } catch (err) {
+    statusEl.textContent = 'Could not load snapshot: ' + err.message;
+    statusEl.classList.add('error');
+  }
+}
+
+function render(data) {
+  document.getElementById('meta').textContent =
+    'Last run: ' + new Date(data.generatedAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+
+  const strip = document.getElementById('sprint-strip');
+  strip.innerHTML = data.bySprintRollup.map(s => {
+    const pct = Math.round((s.covered / s.totalTickets) * 100);
+    let gapText;
+    if (s.gaps.length === 0) {
+      gapText = '<span class="gap-count clean">No gaps</span>';
+    } else {
+      const noTagCount = s.gaps.filter(g => gapType(g.reason) === 'no-tag').length;
+      const staleCount = s.gaps.filter(g => gapType(g.reason) === 'stale-tag').length;
+      const parts = [];
+      if (noTagCount > 0) parts.push(noTagCount + ' no tag');
+      if (staleCount > 0) parts.push(staleCount + ' stale');
+      gapText = '<span class="gap-count">' + parts.join(', ') + '</span>';
+    }
+    return `
+      <div class="sprint-card">
+        <div class="name">${escapeHtml(s.sprintName)}</div>
+        <div class="ratio">${s.covered}/${s.totalTickets}</div>
+        <div class="sprint-track"><div class="sprint-fill" style="width:${pct}%"></div></div>
+        ${gapText}
+      </div>
+    `;
+  }).join('');
+
+  const list = document.getElementById('feature-list');
+  list.innerHTML = data.byFeatureRollup.map(f => {
+    const pct = Math.round((f.covered / f.totalTickets) * 100);
+    const fillClass = pct === 100 ? '' : 'partial';
+    const gapsHtml = f.gaps.length === 0
+      ? '<span class="clean-pill">All tickets documented</span>'
+      : f.gaps.map(g => {
+          const type = gapType(g.reason);
+          return `
+          <div class="gap-row">
+            <span class="ticket">${escapeHtml(g.ticketId)}</span> - ${escapeHtml(g.sprintName)}
+            <span class="gap-type-badge ${type}">${gapTypeLabel(type)}</span>
+            <div class="reason">${escapeHtml(g.reason)}</div>
+          </div>
+        `;
+        }).join('');
+    return `
+      <div class="feature-card">
+        <div class="feature-head">
+          <div class="feature-title">${escapeHtml(f.epicId)} - ${escapeHtml(f.epicTitle)}</div>
+          <div class="feature-owner">${escapeHtml(f.owner)}</div>
+        </div>
+        <div class="feature-ratio">${f.covered}/${f.totalTickets} tickets documented</div>
+        <div class="feature-track"><div class="feature-fill ${fillClass}" style="width:${pct}%"></div></div>
+        ${gapsHtml}
+      </div>
+    `;
+  }).join('');
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function gapType(reason) {
+  return /stale tag/i.test(reason || '') ? 'stale-tag' : 'no-tag';
+}
+
+function gapTypeLabel(type) {
+  return type === 'stale-tag' ? 'Stale tag' : 'No tag';
+}
+
+loadSnapshot();
+</script>
+</body>
+</html>
