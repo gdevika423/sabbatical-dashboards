@@ -1,0 +1,145 @@
+{
+  "generatedAt": "2026-06-29T15:12:43.746Z",
+  "overall": {
+    "total": 8,
+    "compliant": 5,
+    "gapCount": 3
+  },
+  "byOwnerRollup": [
+    {
+      "owner": "Priya Nair",
+      "total": 4,
+      "compliant": 3,
+      "gaps": [
+        {
+          "contentId": "DOC-203",
+          "title": "Knowledge Base Search Relevance Notes",
+          "gapType": "no-signoff",
+          "reason": "No reviewer recorded for \"Knowledge Base Search Relevance Notes\". AI-touched content shipped with no sign-off at all."
+        }
+      ]
+    },
+    {
+      "owner": "Arjun Mehta",
+      "total": 2,
+      "compliant": 1,
+      "gaps": [
+        {
+          "contentId": "DOC-202",
+          "title": "In-App Help Widget - Tour Copy",
+          "gapType": "backfilled-signoff",
+          "reason": "\"In-App Help Widget - Tour Copy\" was published 2026-05-09 but signed off 2026-05-10 — review happened after publish. Backfilled sign-off, not real review."
+        }
+      ]
+    },
+    {
+      "owner": "Meera Kulkarni",
+      "total": 2,
+      "compliant": 1,
+      "gaps": [
+        {
+          "contentId": "DOC-207",
+          "title": "Release Notes - Search Index Rebuild",
+          "gapType": "no-signoff",
+          "reason": "No reviewer recorded for \"Release Notes - Search Index Rebuild\". AI-touched content shipped with no sign-off at all."
+        }
+      ]
+    }
+  ],
+  "allEntries": [
+    {
+      "contentId": "DOC-201",
+      "title": "API Pagination Guide - Editorial Pass",
+      "owner": "Priya Nair",
+      "aiTouched": true,
+      "aiLayer": "Layer 1 - language & structure check",
+      "reviewerName": "Priya Nair",
+      "reviewDate": "2026-05-02",
+      "publishDate": "2026-05-03",
+      "status": "compliant"
+    },
+    {
+      "contentId": "DOC-202",
+      "title": "In-App Help Widget - Tour Copy",
+      "owner": "Arjun Mehta",
+      "aiTouched": true,
+      "aiLayer": "Layer 1 - first draft from spec",
+      "reviewerName": "Arjun Mehta",
+      "reviewDate": "2026-05-10",
+      "publishDate": "2026-05-09",
+      "status": "gap",
+      "gapType": "backfilled-signoff",
+      "reason": "\"In-App Help Widget - Tour Copy\" was published 2026-05-09 but signed off 2026-05-10 — review happened after publish. Backfilled sign-off, not real review."
+    },
+    {
+      "contentId": "DOC-203",
+      "title": "Knowledge Base Search Relevance Notes",
+      "owner": "Priya Nair",
+      "aiTouched": true,
+      "aiLayer": "Layer 1 - structural consistency check",
+      "reviewerName": null,
+      "reviewDate": null,
+      "publishDate": "2026-05-12",
+      "status": "gap",
+      "gapType": "no-signoff",
+      "reason": "No reviewer recorded for \"Knowledge Base Search Relevance Notes\". AI-touched content shipped with no sign-off at all."
+    },
+    {
+      "contentId": "DOC-204",
+      "title": "Release Notes - Automation Pipeline v2",
+      "owner": "Meera Kulkarni",
+      "aiTouched": true,
+      "aiLayer": "Layer 1 - release-note draft from tickets",
+      "reviewerName": "Meera Kulkarni",
+      "reviewDate": "2026-05-15",
+      "publishDate": "2026-05-15",
+      "status": "compliant"
+    },
+    {
+      "contentId": "DOC-205",
+      "title": "API Reference Overview - Endpoint Refresh",
+      "owner": "Priya Nair",
+      "aiTouched": true,
+      "aiLayer": "Layer 1 - language quality pass",
+      "reviewerName": "Priya Nair",
+      "reviewDate": "2026-05-17",
+      "publishDate": "2026-05-18",
+      "status": "compliant"
+    },
+    {
+      "contentId": "DOC-206",
+      "title": "In-App Help Widget - Tooltip Copy Batch 2",
+      "owner": "Arjun Mehta",
+      "aiTouched": true,
+      "aiLayer": "Layer 1 - language & structure check",
+      "reviewerName": "Arjun Mehta",
+      "reviewDate": "2026-05-21",
+      "publishDate": "2026-05-21",
+      "status": "compliant"
+    },
+    {
+      "contentId": "DOC-207",
+      "title": "Release Notes - Search Index Rebuild",
+      "owner": "Meera Kulkarni",
+      "aiTouched": true,
+      "aiLayer": "Layer 1 - release-note draft from tickets",
+      "reviewerName": null,
+      "reviewDate": null,
+      "publishDate": "2026-05-24",
+      "status": "gap",
+      "gapType": "no-signoff",
+      "reason": "No reviewer recorded for \"Release Notes - Search Index Rebuild\". AI-touched content shipped with no sign-off at all."
+    },
+    {
+      "contentId": "DOC-208",
+      "title": "Knowledge Base Search Relevance - Synonym Update",
+      "owner": "Priya Nair",
+      "aiTouched": true,
+      "aiLayer": "Layer 1 - structural consistency check",
+      "reviewerName": "Priya Nair",
+      "reviewDate": "2026-05-25",
+      "publishDate": "2026-05-26",
+      "status": "compliant"
+    }
+  ]
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Governance Compliance</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --rust: #C2410C;
+    --ink: #1F2328;
+    --ink-soft: #5B6168;
+    --bg: #FBF9F6;
+    --border: #E7E2DC;
+    --red: #B91C1C;
+    --red-bg: #FDECEC;
+    --amber: #B45309;
+    --amber-bg: #FDF0DD;
+    --green: #15803D;
+    --green-bg: #EAF7EE;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 24px 80px; }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.9rem;
+    margin: 0 0 4px;
+  }
+  .meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+  .legend {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    background: #fff;
+    margin-bottom: 36px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .legend .legend-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .legend-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+  .legend-row:last-child { margin-bottom: 0; }
+  .legend-dot {
+    flex-shrink: 0; width: 9px; height: 9px; border-radius: 50%; margin-top: 4px;
+  }
+  .legend-dot.no-signoff { background: var(--red); }
+  .legend-dot.backfilled { background: var(--amber); }
+  .legend-dot.ratio { background: var(--green); }
+  .legend-row b { color: var(--ink); }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    margin: 32px 0 14px;
+  }
+  .overall-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    padding: 18px 20px;
+    margin-bottom: 28px;
+  }
+  .overall-card .big { font-size: 1.8rem; font-weight: 700; }
+  .overall-card .bar-track {
+    height: 6px; border-radius: 4px; background: var(--border);
+    margin: 10px 0 6px; overflow: hidden;
+  }
+  .overall-card .bar-fill { height: 100%; background: var(--green); }
+
+  .owner-grid { display: flex; flex-direction: column; gap: 14px; }
+  .owner-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    padding: 16px 18px;
+  }
+  .owner-card .owner-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 0.95rem; font-weight: 600; margin-bottom: 4px;
+  }
+  .owner-card .ratio { font-family: 'IBM Plex Mono', monospace; color: var(--ink-soft); }
+  .bar-track { height: 6px; border-radius: 4px; background: var(--border); margin: 8px 0 10px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--amber); }
+  .clean-pill {
+    display: inline-block; font-size: 0.78rem; color: var(--green);
+    background: var(--green-bg); padding: 3px 10px; border-radius: 999px;
+  }
+  .gap-row { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; font-size: 0.85rem; }
+  .gap-row .cid { font-family: 'IBM Plex Mono', monospace; color: var(--red); font-size: 0.78rem; }
+  .gap-row .reason { color: var(--ink-soft); margin-top: 2px; }
+  .gap-type-badge {
+    display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem;
+    text-transform: uppercase; letter-spacing: 0.02em; padding: 2px 7px; border-radius: 999px; margin-left: 6px;
+  }
+  .gap-type-badge.no-signoff { background: var(--red-bg); color: var(--red); }
+  .gap-type-badge.backfilled-signoff { background: var(--amber-bg); color: var(--amber); }
+
+  .loading, .error {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--ink-soft);
+    padding: 40px 0; text-align: center;
+  }
+  .error { color: var(--red); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>AI Governance Compliance</h1>
+  <div class="meta" id="meta">Loading…</div>
+
+  <div class="legend">
+    <div class="legend-title">How to read this</div>
+    <div class="legend-row">
+      <span class="legend-dot ratio"></span>
+      <span><b>The ratio</b> is content pieces with real sign-off over total AI-touched content checked.</span>
+    </div>
+    <div class="legend-row">
+      <span class="legend-dot no-signoff"></span>
+      <span><b>No sign-off</b> — AI-touched content published with no reviewer recorded at all.</span>
+    </div>
+    <div class="legend-row">
+      <span class="legend-dot backfilled"></span>
+      <span><b>Backfilled sign-off</b> — a reviewer is recorded, but the review date is after the publish date. The content shipped before anyone actually checked it.</span>
+    </div>
+  </div>
+
+  <div id="overall"></div>
+  <h2>Compliance by owner</h2>
+  <div class="owner-grid" id="ownerGrid"></div>
+</div>
+
+<script>
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function gapBadgeLabel(type) {
+  return type === 'backfilled-signoff' ? 'Backfilled sign-off' : 'No sign-off';
+}
+
+async function load() {
+  const meta = document.getElementById('meta');
+  try {
+    const res = await fetch('./snapshot.json?t=' + Date.now());
+    if (!res.ok) throw new Error('Failed to fetch');
+    const data = await res.json();
+    render(data);
+  } catch (e) {
+    meta.innerHTML = '<span class="error">Could not load snapshot: ' + e.message + '</span>';
+  }
+}
+
+function render(data) {
+  const meta = document.getElementById('meta');
+  const d = new Date(data.generatedAt);
+  meta.textContent = 'Last run: ' + d.toLocaleDateString(undefined, { day:'2-digit', month:'short', year:'numeric' }) + ', ' + d.toLocaleTimeString(undefined, { hour:'2-digit', minute:'2-digit' });
+
+  const overall = document.getElementById('overall');
+  const pct = Math.round((data.overall.compliant / data.overall.total) * 100);
+  overall.innerHTML = `
+    <div class="overall-card">
+      <div class="big">${data.overall.compliant}/${data.overall.total} compliant</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+      <div style="font-size:0.85rem;color:var(--ink-soft)">${data.overall.gapCount} gap${data.overall.gapCount === 1 ? '' : 's'} across all AI-touched content checked</div>
+    </div>
+  `;
+
+  const grid = document.getElementById('ownerGrid');
+  grid.innerHTML = data.byOwnerRollup.map(o => {
+    const pct = Math.round((o.compliant / o.total) * 100);
+    const gapsHtml = o.gaps.length === 0
+      ? '<span class="clean-pill">All content signed off correctly</span>'
+      : o.gaps.map(g => `
+          <div class="gap-row">
+            <span class="cid">${escapeHtml(g.contentId)}</span>
+            <span class="gap-type-badge ${g.gapType}">${gapBadgeLabel(g.gapType)}</span>
+            <div class="reason">${escapeHtml(g.reason)}</div>
+          </div>
+        `).join('');
+    return `
+      <div class="owner-card">
+        <div class="owner-head">
+          <span>${escapeHtml(o.owner)}</span>
+          <span class="ratio">${o.compliant}/${o.total}</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+        ${gapsHtml}
+      </div>
+    `;
+  }).join('');
+}
+
+load();
+</script>
+</body>
+</html>
