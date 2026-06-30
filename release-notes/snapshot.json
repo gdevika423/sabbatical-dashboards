@@ -1,0 +1,13 @@
+{
+  "generatedAt": "2026-06-30T12:00:00.000Z",
+  "runs": [
+    {
+      "releaseId": "REL-2026.3",
+      "releaseName": "Search & Onboarding Improvements",
+      "ticketCount": 4,
+      "prUrl": "https://github.com/gdevika423/devika-portfolio/pull/3",
+      "status": "merged",
+      "reviewNotes": "Reviewed and merged - what changed, customer impact, known limitations, and rollout details checked against source tickets."
+    }
+  ]
+}

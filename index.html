@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sabbatical Project Dashboards</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --rust: #C2410C;
+    --ink: #1F2328;
+    --ink-soft: #5B6168;
+    --bg: #FBF9F6;
+    --border: #E7E2DC;
+    --red: #B91C1C;
+    --red-bg: #FDECEC;
+    --amber: #B45309;
+    --amber-bg: #FDF0DD;
+    --green: #15803D;
+    --green-bg: #EAF7EE;
+    --purple: #534AB7;
+    --purple-bg: #EEEDFE;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.9rem;
+    margin: 0 0 4px;
+  }
+  .subtitle {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    background: none;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .tab-btn.active {
+    color: var(--rust);
+    border-bottom: 2px solid var(--rust);
+    font-weight: 500;
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+
+  .legend {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    background: #fff;
+    margin-bottom: 28px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .legend .legend-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .legend-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+  .legend-row:last-child { margin-bottom: 0; }
+  .legend-dot { flex-shrink: 0; width: 9px; height: 9px; border-radius: 50%; margin-top: 4px; }
+  .legend-dot.red { background: var(--red); }
+  .legend-dot.amber { background: var(--amber); }
+  .legend-dot.green { background: var(--green); }
+  .legend-row b { color: var(--ink); }
+
+  h2.section { font-family: 'Fraunces', serif; font-size: 1.1rem; margin: 28px 0 14px; }
+
+  .card-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+  .stat-card {
+    flex: 1; min-width: 130px;
+    border: 1px solid var(--border); border-radius: 12px; background: #fff; padding: 14px 16px;
+  }
+  .stat-card .label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--ink-soft); margin-bottom: 4px;
+  }
+  .stat-card .value { font-size: 1.4rem; font-weight: 700; }
+  .bar-track { height: 6px; border-radius: 4px; background: var(--border); margin: 8px 0 4px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--green); }
+  .gap-summary { font-size: 0.78rem; color: var(--red); }
+
+  .item-card {
+    border: 1px solid var(--border); border-radius: 12px; background: #fff; padding: 16px 18px; margin-bottom: 14px;
+  }
+  .item-head {
+    display: flex; justify-content: space-between; align-items: baseline; font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; gap: 12px; flex-wrap: wrap;
+  }
+  .item-head .ratio { font-family: 'IBM Plex Mono', monospace; color: var(--ink-soft); font-weight: 400; }
+  .clean-pill {
+    display: inline-block; font-size: 0.78rem; color: var(--green); background: var(--green-bg); padding: 3px 10px; border-radius: 999px;
+  }
+  .gap-row { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; font-size: 0.85rem; }
+  .gap-row .cid { font-family: 'IBM Plex Mono', monospace; color: var(--red); font-size: 0.78rem; }
+  .gap-row .reason { color: var(--ink-soft); margin-top: 2px; }
+  .badge {
+    display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem;
+    text-transform: uppercase; letter-spacing: 0.02em; padding: 2px 7px; border-radius: 999px; margin-left: 6px;
+  }
+  .badge.red { background: var(--red-bg); color: var(--red); }
+  .badge.amber { background: var(--amber-bg); color: var(--amber); }
+  .badge.green { background: var(--green-bg); color: var(--green); }
+  .badge.purple { background: var(--purple-bg); color: var(--purple); }
+
+  .field { margin-top: 8px; font-size: 0.88rem; }
+  .field .field-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--ink-soft); display: block; margin-bottom: 2px;
+  }
+  .consistency-banner {
+    border: 1px solid var(--rust); background: #FDF1EB; border-radius: 12px; padding: 18px 20px; margin-bottom: 24px;
+  }
+  .consistency-banner .title { font-family: 'Fraunces', serif; font-size: 1.0rem; margin: 0 0 6px; color: var(--rust); }
+
+  a.pr-link { color: var(--rust); font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; text-decoration: none; }
+  a.pr-link:hover { text-decoration: underline; }
+
+  .loading, .error {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--ink-soft); padding: 40px 0; text-align: center;
+  }
+  .error { color: var(--red); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Sabbatical project dashboards</h1>
+  <div class="subtitle">Live output from each checker — what's covered, what's flagged, what's still open.</div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="traceability">Traceability</button>
+    <button class="tab-btn" data-tab="governance">AI Governance</button>
+    <button class="tab-btn" data-tab="health">Doc Health</button>
+    <button class="tab-btn" data-tab="release-notes">Release Notes</button>
+  </div>
+
+  <div id="panel-traceability" class="tab-panel active">
+    <div class="meta" id="meta-traceability">Loading…</div>
+    <div class="legend">
+      <div class="legend-title">How to read this</div>
+      <div class="legend-row"><span class="legend-dot green"></span><span><b>The ratio</b> is covered tickets over total tickets in that sprint or feature.</span></div>
+      <div class="legend-row"><span class="legend-dot red"></span><span><b>No tag</b> — no documentation page references this ticket at all.</span></div>
+      <div class="legend-row"><span class="legend-dot amber"></span><span><b>Stale tag</b> — a doc page does tag this ticket, but was last edited before the sprint started.</span></div>
+    </div>
+    <h2 class="section">Sprint progress</h2>
+    <div class="card-row" id="sprint-cards"></div>
+    <h2 class="section">Feature coverage</h2>
+    <div id="feature-cards"></div>
+  </div>
+
+  <div id="panel-governance" class="tab-panel">
+    <div class="meta" id="meta-governance">Loading…</div>
+    <div class="legend">
+      <div class="legend-title">How to read this</div>
+      <div class="legend-row"><span class="legend-dot green"></span><span><b>The ratio</b> is content pieces with real sign-off over total AI-touched content checked.</span></div>
+      <div class="legend-row"><span class="legend-dot red"></span><span><b>No sign-off</b> — AI-touched content published with no reviewer recorded at all.</span></div>
+      <div class="legend-row"><span class="legend-dot amber"></span><span><b>Backfilled sign-off</b> — a reviewer is recorded, but the review date is after publish.</span></div>
+    </div>
+    <div id="governance-overall"></div>
+    <h2 class="section">Compliance by owner</h2>
+    <div id="owner-cards"></div>
+  </div>
+
+  <div id="panel-health" class="tab-panel">
+    <div class="meta" id="meta-health">Loading…</div>
+    <div class="card-row" id="health-summary"></div>
+    <div class="consistency-banner" id="consistency-banner" style="display:none;">
+      <div class="title">Cross-page consistency</div>
+      <div id="consistency-body" style="font-size:0.9rem;"></div>
+    </div>
+    <h2 class="section">Pages</h2>
+    <div id="health-pages"></div>
+  </div>
+
+  <div id="panel-release-notes" class="tab-panel">
+    <div class="meta" id="meta-release-notes">Loading…</div>
+    <div class="legend">
+      <div class="legend-title">How to read this</div>
+      <div class="legend-row"><span class="legend-dot green"></span><span>Each row is one real run of the Release Notes Automation sub-workflow — a batch of release tickets synthesized into structured notes, gated by a pull request.</span></div>
+    </div>
+    <div id="release-notes-runs"></div>
+  </div>
+
+</div>
+
+<script>
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function fmtDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString(undefined, { day:'2-digit', month:'short', year:'numeric' }) + ', ' +
+         d.toLocaleTimeString(undefined, { hour:'2-digit', minute:'2-digit' });
+}
+
+// ---- Tabs ----
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ---- Traceability ----
+function gapType(reason) { return /stale tag/i.test(reason || '') ? 'stale-tag' : 'no-tag'; }
+function gapTypeLabel(type) { return type === 'stale-tag' ? 'Stale tag' : 'No tag'; }
+
+async function loadTraceability() {
+  try {
+    const res = await fetch('release-traceability/snapshot.json?t=' + Date.now());
+    const data = await res.json();
+    document.getElementById('meta-traceability').textContent = 'Last run: ' + fmtDate(data.generatedAt);
+
+    document.getElementById('sprint-cards').innerHTML = data.bySprintRollup.map(s => {
+      const pct = Math.round((s.covered / s.totalTickets) * 100);
+      let gapText;
+      if (s.gaps.length === 0) {
+        gapText = '<span class="gap-summary" style="color:var(--green)">No gaps</span>';
+      } else {
+        const noTagCount = s.gaps.filter(g => gapType(g.reason) === 'no-tag').length;
+        const staleCount = s.gaps.filter(g => gapType(g.reason) === 'stale-tag').length;
+        const parts = [];
+        if (noTagCount > 0) parts.push(noTagCount + ' no tag');
+        if (staleCount > 0) parts.push(staleCount + ' stale');
+        gapText = '<span class="gap-summary">' + parts.join(', ') + '</span>';
+      }
+      return `<div class="stat-card"><div class="label">${escapeHtml(s.sprintName || s.sprintId)}</div>
+        <div class="value">${s.covered}/${s.totalTickets}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+        ${gapText}</div>`;
+    }).join('');
+
+    document.getElementById('feature-cards').innerHTML = data.byFeatureRollup.map(f => {
+      const pct = Math.round((f.covered / f.total) * 100);
+      const gapsHtml = f.gaps.length === 0
+        ? '<span class="clean-pill">All tickets documented</span>'
+        : f.gaps.map(g => {
+            const type = gapType(g.reason);
+            return `<div class="gap-row"><span class="cid">${escapeHtml(g.ticketId)}</span> - ${escapeHtml(g.sprintName)}
+              <span class="badge ${type === 'stale-tag' ? 'amber' : 'red'}">${gapTypeLabel(type)}</span>
+              <div class="reason">${escapeHtml(g.reason)}</div></div>`;
+          }).join('');
+      return `<div class="item-card"><div class="item-head"><span>${escapeHtml(f.featureId)} - ${escapeHtml(f.title)}</span>
+        <span class="ratio">${f.covered}/${f.total}</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>${gapsHtml}</div>`;
+    }).join('');
+  } catch (e) {
+    document.getElementById('meta-traceability').innerHTML = '<span class="error">Could not load: ' + e.message + '</span>';
+  }
+}
+
+// ---- AI Governance ----
+function gapBadgeLabel(type) { return type === 'backfilled-signoff' ? 'Backfilled sign-off' : 'No sign-off'; }
+
+async function loadGovernance() {
+  try {
+    const res = await fetch('ai-governance/snapshot.json?t=' + Date.now());
+    const data = await res.json();
+    document.getElementById('meta-governance').textContent = 'Last run: ' + fmtDate(data.generatedAt);
+
+    const pct = Math.round((data.overall.compliant / data.overall.total) * 100);
+    document.getElementById('governance-overall').innerHTML = `
+      <div class="item-card"><div class="value" style="font-size:1.6rem;font-weight:700;">${data.overall.compliant}/${data.overall.total} compliant</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+      <div style="font-size:0.85rem;color:var(--ink-soft)">${data.overall.gapCount} gap${data.overall.gapCount === 1 ? '' : 's'} across all AI-touched content checked</div></div>`;
+
+    document.getElementById('owner-cards').innerHTML = data.byOwnerRollup.map(o => {
+      const pct = Math.round((o.compliant / o.total) * 100);
+      const gapsHtml = o.gaps.length === 0
+        ? '<span class="clean-pill">All content signed off correctly</span>'
+        : o.gaps.map(g => `<div class="gap-row"><span class="cid">${escapeHtml(g.contentId)}</span>
+            <span class="badge ${g.gapType === 'backfilled-signoff' ? 'amber' : 'red'}">${gapBadgeLabel(g.gapType)}</span>
+            <div class="reason">${escapeHtml(g.reason)}</div></div>`).join('');
+      return `<div class="item-card"><div class="item-head"><span>${escapeHtml(o.owner)}</span>
+        <span class="ratio">${o.compliant}/${o.total}</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>${gapsHtml}</div>`;
+    }).join('');
+  } catch (e) {
+    document.getElementById('meta-governance').innerHTML = '<span class="error">Could not load: ' + e.message + '</span>';
+  }
+}
+
+// ---- Doc Health ----
+async function loadHealth() {
+  try {
+    const res = await fetch('doc-health/snapshot.json?t=' + Date.now());
+    const data = await res.json();
+    document.getElementById('meta-health').textContent = 'Last run: ' + fmtDate(data.generatedAt);
+
+    const counts = { fresh: 0, aging: 0, stale: 0 };
+    data.pages.forEach(p => counts[p.freshness.level] = (counts[p.freshness.level] || 0) + 1);
+    document.getElementById('health-summary').innerHTML = `
+      <div class="stat-card"><div class="label">Pages checked</div><div class="value">${data.pages.length}</div></div>
+      <div class="stat-card"><div class="label">Fresh</div><div class="value" style="color:var(--green)">${counts.fresh || 0}</div></div>
+      <div class="stat-card"><div class="label">Aging</div><div class="value" style="color:var(--amber)">${counts.aging || 0}</div></div>
+      <div class="stat-card"><div class="label">Stale</div><div class="value" style="color:var(--red)">${counts.stale || 0}</div></div>`;
+
+    if (data.crossPageConsistency) {
+      document.getElementById('consistency-body').textContent = data.crossPageConsistency;
+      document.getElementById('consistency-banner').style.display = 'block';
+    }
+
+    document.getElementById('health-pages').innerHTML = data.pages.slice(0, 20).map(p => `
+      <div class="item-card">
+        <div class="item-head"><span>${escapeHtml(p.name)}</span>
+        <span class="badge ${p.freshness.level === 'fresh' ? 'green' : p.freshness.level === 'aging' ? 'amber' : 'red'}">${escapeHtml(p.freshness.label)}</span></div>
+        <div class="field"><span class="field-label">Coverage gaps</span>${escapeHtml(p.coverageGaps)}</div>
+      </div>`).join('') + (data.pages.length > 20 ? `<div style="font-size:0.85rem;color:var(--ink-soft);text-align:center;padding:12px;">+ ${data.pages.length - 20} more pages checked</div>` : '');
+  } catch (e) {
+    document.getElementById('meta-health').innerHTML = '<span class="error">Could not load: ' + e.message + '</span>';
+  }
+}
+
+// ---- Release Notes ----
+async function loadReleaseNotes() {
+  try {
+    const res = await fetch('release-notes/snapshot.json?t=' + Date.now());
+    const data = await res.json();
+    document.getElementById('meta-release-notes').textContent = 'Last run: ' + fmtDate(data.generatedAt);
+
+    document.getElementById('release-notes-runs').innerHTML = data.runs.map(r => `
+      <div class="item-card">
+        <div class="item-head"><span>${escapeHtml(r.releaseId)} - ${escapeHtml(r.releaseName)}</span>
+        <span class="badge ${r.status === 'merged' ? 'green' : r.status === 'closed' ? 'red' : 'purple'}">${escapeHtml(r.status)}</span></div>
+        <div class="field"><span class="field-label">Tickets synthesized</span>${r.ticketCount}</div>
+        <div class="field"><span class="field-label">Review</span>${escapeHtml(r.reviewNotes)}</div>
+        <div class="field"><a class="pr-link" href="${r.prUrl}" target="_blank" rel="noopener">View pull request →</a></div>
+      </div>`).join('');
+  } catch (e) {
+    document.getElementById('meta-release-notes').innerHTML = '<span class="error">Could not load: ' + e.message + '</span>';
+  }
+}
+
+loadTraceability();
+loadGovernance();
+loadHealth();
+loadReleaseNotes();
+</script>
+</body>
+</html>
